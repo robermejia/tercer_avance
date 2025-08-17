@@ -7,10 +7,12 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterOutlet } from '@angular/router';
 import { Navegacion } from '../shared/enums/enums';
 import { Student } from '../shared/entities';
+import { Footer } from './footer/footer';
+
 
 @Component({
   selector: 'app-root',
-  imports: [Toolbar, Navbar, CommonModule, MatSnackBarModule, RouterOutlet],
+  imports: [Toolbar, Navbar, Footer, MatSnackBarModule, RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

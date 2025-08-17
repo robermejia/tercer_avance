@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { Bigtitle } from '../../shared/directives/bigtitle';
 
 @Component({
-  selector: 'app-toolbar',
+  selector: 'app-footer',
   imports: [Bigtitle],
-  templateUrl: './toolbar.html',
-  styleUrl: './toolbar.css'
+  templateUrl: './footer.html',
+  styleUrl: './footer.css'
 })
-export class Toolbar {
+export class Footer {
 
 }
