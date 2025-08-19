@@ -14,3 +14,13 @@ export interface Course {
     code: string;
     credits: number;
 }
+
+export interface Inscripcion {
+    id?: string;
+    studentId: string;
+    studentName: string;
+    courseId: string;
+    courseName: string;
+    fechaInscripcion: Date;
+    estado: 'activa' | 'cancelada' | 'completada';
+}
