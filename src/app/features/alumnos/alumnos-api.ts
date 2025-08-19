@@ -8,7 +8,8 @@ import { DbRoutes } from '../../../shared/enums/enums';
   providedIn: 'root'
 })
 export class AlumnosAPI {
-  baseUrl = "http://localhost:3000";
+  // Using MockAPI for students
+  baseUrl = "https://689296dfc49d24bce867de63.mockapi.io/api/v1";
   constructor(
     private http: HttpClient
   ) { }
@@ -19,11 +20,13 @@ export class AlumnosAPI {
 
 
   deleteAlumno(student: Student): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${DbRoutes.Students}/${student.dni}`);
+    const resourceId = (student as any).id ?? student.dni;
+    return this.http.delete<void>(`${this.baseUrl}/${DbRoutes.Students}/${resourceId}`);
   }
 
   updateAlumno(student: Student): Observable<Student> {
-    return this.http.put<Student>(`${this.baseUrl}/${DbRoutes.Students}/${student.dni}`, student);
+    const resourceId = (student as any).id ?? student.dni;
+    return this.http.put<Student>(`${this.baseUrl}/${DbRoutes.Students}/${resourceId}`, student);
   }
 
 

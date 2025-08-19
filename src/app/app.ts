@@ -4,10 +4,11 @@ import { Navbar } from './navbar/navbar';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, Router } from '@angular/router';
 import { Navegacion } from '../shared/enums/enums';
 import { Student } from '../shared/entities';
 import { Footer } from './footer/footer';
+import { Auth } from './core/auth/auth';
 
 
 @Component({
@@ -18,7 +19,7 @@ import { Footer } from './footer/footer';
 })
 export class App {
   // Title of the application
-  protected readonly title = signal('primer_avance');
+  protected readonly title = signal('tercer_avance');
 
   rutas = Navegacion
   @Output() sectionChanged = new EventEmitter<string>();
@@ -26,10 +27,18 @@ export class App {
   students: Student[] = [];
   activeSection = "students";
   private _snackBar = inject(MatSnackBar);
+  private auth = inject(Auth);
+  private router = inject(Router);
 
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
+    // Verificar si el usuario está autenticado
+    if (!this.auth.isLoggedIn()) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
     this.http.get<Student[]>('mocks/students.json').subscribe(data => {
       this.students = data;
       this.cdr.detectChanges();

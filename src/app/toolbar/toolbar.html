@@ -2,13 +2,26 @@
   <!-- Toolbar superior -->
   <nav class="toolbar bg-dark navbar navbar-expand-lg shadow-sm px-3 py-2">
     <div class="container-fluid">
+      <div class="d-flex align-items-center">
+        <!-- Logo / Marca -->
+        <h1 appBigtitle class="toolbar me-4">AppCoderHouse</h1>
+        
+        <!-- Título de la sección actual -->
+        <div class="section-title">
+          <h4 class="text-light mb-0">{{ currentTitle }}</h4>
+        </div>
+      </div>
 
-      <!-- Logo / Marca 
-      <a class="navbar-brand fw-bold" href="#">AppCoderHouse</a> -->
-      <h1 appBigtitle class="toolbar">AppCoderHouse</h1>
+      <!-- Información del usuario -->
+      <div class="user-info" *ngIf="currentUser">
+        <div class="user-details">
+          <span class="user-name text-light me-2">{{ currentUser.username }}</span>
+          <span class="user-role badge" [class.bg-primary]="currentUser.role === 'admin'" 
+                [class.bg-secondary]="currentUser.role === 'user'">
+            {{ currentUser.role === 'admin' ? 'Admin' : 'Usuario' }}
+          </span>
+        </div>
+      </div>
     </div>
   </nav>
-
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

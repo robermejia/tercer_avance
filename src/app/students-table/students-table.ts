@@ -13,6 +13,7 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class StudentsTable {
   @Input() students: Student[] = [];
+  @Input() isAdmin: boolean = false;
 
   @Output() deleteEvent = new EventEmitter<Student>();
 

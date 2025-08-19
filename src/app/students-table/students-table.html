@@ -28,9 +28,9 @@
     <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let element">
-            <button (click)="viewDetails(element)" mat-button color="accent">View</button>
-            <button (click)="editStudent(element)" mat-button color="primary">Edit</button>
-            <button (click)="deleteStudent(element)" mat-button color="warn">Delete</button>
+            <button (click)="viewDetails(element)" mat-button color="accent">Ver</button>
+            <button (click)="editStudent(element)" mat-button color="primary" *ngIf="isAdmin">Editar</button>
+            <button (click)="deleteStudent(element)" mat-button color="warn" *ngIf="isAdmin">Eliminar</button>
         </td>
     </ng-container>
 

@@ -2,7 +2,7 @@
 <div class="container-fluid">
     <app-toolbar class="toolbar"></app-toolbar>
 
-    <div class="row g-0">
+    <div class="row g-0" *ngIf="auth.isLoggedIn()">
         <!-- Columna izquierda: sidebar (navbar) -->
         <aside class="col-12 col-md-3 col-lg-2 p-0">
             <app-navbar></app-navbar>
@@ -14,5 +14,10 @@
         </main>
     </div>
     
-    <app-footer class="footer"></app-footer>
+    <!-- Mostrar solo el contenido del router cuando no esté autenticado (para login) -->
+    <div *ngIf="!auth.isLoggedIn()">
+        <router-outlet></router-outlet>
+    </div>
+    
+    <app-footer class="footer" *ngIf="auth.isLoggedIn()"></app-footer>
 </div>
