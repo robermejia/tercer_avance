@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { AlumnosAPI } from './alumnos-api';
 import { Student } from '../../../shared/entities';
 import { CommonModule, JsonPipe } from '@angular/common';
@@ -8,11 +8,12 @@ import { Auth } from '../../core/auth/auth';
 
 @Component({
   selector: 'app-alumnos',
+  standalone: true,
   imports: [CommonModule, StudentsTable],
   templateUrl: './alumnos.html',
   styleUrls: ['./alumnos.css']
 })
-export class Alumnos {
+export class Alumnos implements OnInit {
   alumnos: Student[] = [];
   isLoading: boolean = true;
   private auth = inject(Auth);
@@ -46,5 +47,4 @@ export class Alumnos {
   get isAdmin(): boolean {
     return this.auth.isAdmin();
   }
-}
 }

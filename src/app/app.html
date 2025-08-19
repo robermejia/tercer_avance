@@ -1,6 +1,7 @@
 <!-- app.component.html -->
 <div class="container-fluid">
-    <app-toolbar class="toolbar"></app-toolbar>
+    <!-- Solo mostrar toolbar cuando esté autenticado -->
+    <app-toolbar class="toolbar" *ngIf="auth.isLoggedIn()"></app-toolbar>
 
     <div class="row g-0" *ngIf="auth.isLoggedIn()">
         <!-- Columna izquierda: sidebar (navbar) -->

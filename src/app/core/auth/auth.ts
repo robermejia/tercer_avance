@@ -21,10 +21,12 @@ export class Auth {
   loggedUser$ = this.loggedUserSubject.asObservable();
 
   constructor(private router: Router) {
-    // Check if user is already logged in from localStorage
-    const savedUser = localStorage.getItem('currentUser');
-    if (savedUser) {
-      this.loggedUserSubject.next(JSON.parse(savedUser));
+    // Check if user is already logged in from localStorage (only in browser)
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const savedUser = localStorage.getItem('currentUser');
+      if (savedUser) {
+        this.loggedUserSubject.next(JSON.parse(savedUser));
+      }
     }
   }
 
@@ -33,7 +35,9 @@ export class Auth {
     if (user) {
       const userInfo = { username: user.username, role: user.role };
       this.loggedUserSubject.next(userInfo);
-      localStorage.setItem('currentUser', JSON.stringify(userInfo));
+      if (typeof window !== 'undefined' && window.localStorage) {
+        localStorage.setItem('currentUser', JSON.stringify(userInfo));
+      }
       return true;
     }
     return false;

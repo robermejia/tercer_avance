@@ -13,7 +13,8 @@ import { Auth } from './core/auth/auth';
 
 @Component({
   selector: 'app-root',
-  imports: [Toolbar, Navbar, Footer, MatSnackBarModule, RouterOutlet],
+  standalone: true,
+  imports: [Toolbar, Navbar, Footer, MatSnackBarModule, RouterOutlet, CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -27,7 +28,7 @@ export class App {
   students: Student[] = [];
   activeSection = "students";
   private _snackBar = inject(MatSnackBar);
-  private auth = inject(Auth);
+  auth = inject(Auth);
   private router = inject(Router);
 
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef) { }

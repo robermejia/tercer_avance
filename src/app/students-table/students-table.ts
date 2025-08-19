@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Student } from '../../shared/entities';
 
 import { MatTableModule } from '@angular/material/table';
@@ -7,7 +8,8 @@ import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-students-table',
-  imports: [MatTableModule, FullnamePipe, RouterModule],
+  standalone: true,
+  imports: [MatTableModule, FullnamePipe, RouterModule, CommonModule],
   templateUrl: './students-table.html',
   styleUrl: './students-table.css'
 })

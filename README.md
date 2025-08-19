@@ -1,64 +1,95 @@
-# PrimerAvance
-<p align="center"> 
-    <img src="https://jobs.coderhouse.com/assets/logos_coderhouse.png" alt="CoderHouse"  height="100"/>
+# Tercer Avance - Gestión de Alumnos (Angular)
+
+<p align="center">
+  <img src="https://jobs.coderhouse.com/assets/logos_coderhouse.png" alt="CoderHouse" height="100"/>
 </p>
 
-# Listado de Clases - Comisión 73985 (Angular)
+Aplicación Angular para gestionar alumnos, cursos e inscripciones. Integra autenticación básica por roles y consumo de APIs MockAPI.
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.0.
+## Requisitos y ejecución
 
-## Development server
+- Node.js y npm instalados
+- Instalar dependencias: `npm install`
+- Ejecutar en desarrollo: `npm start` y abrir `http://localhost:4200/`
 
-To start a local development server, run:
+Scripts útiles:
+- `npm start`: inicia el servidor de desarrollo
+- `npm run build`: compila a producción en `dist/`
+- `npm test`: ejecuta tests unitarios (si aplica)
 
-```bash
-ng serve
-```
+## Autenticación
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Credenciales de demo (definidas en `src/app/core/auth/auth.ts`):
+- Admin: usuario `admin` / contraseña `admin`
+- Usuario: usuario `user` / contraseña `user`
 
-## Code scaffolding
+El rol `admin` habilita acciones de edición y eliminación.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Endpoints (MockAPI)
 
-```bash
-ng generate component component-name
-```
+- Alumnos: `https://689296dfc49d24bce867de63.mockapi.io/api/v1/students`
+  - Archivo: `src/app/features/alumnos/alumnos-api.ts`
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- Cursos: `https://689296dfc49d24bce867de63.mockapi.io/api/v1/courses`
+  - Archivo: `src/app/features/cursos/cursos-api.ts`
+  - Vista: `src/app/features/cursos/cursos.html`
 
-```bash
-ng generate --help
-```
+- Inscripciones: `https://68a42ed2c123272fb9b1aaeb.mockapi.io/api/v1/inscripciones`
+  - Archivo (carga de lista): `src/app/features/inscripciones/inscripciones.ts`
 
-## Building
+Colecciones esperadas por la app (enum `DbRoutes`): `students`, `courses`, `inscripciones`.
 
-To build the project run:
+## Modelos de datos
 
-```bash
-ng build
-```
+Student (`src/shared/entities.ts`):
+- `id?: string` (MockAPI)
+- `name: string`
+- `surname: string`
+- `age: number`
+- `dni: number`
+- `average: number` (la UI valida 0–10)
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Course (`src/shared/entities.ts`):
+- `id: string`
+- `name: string`
+- `code: string | number` (MockAPI puede devolver numérico; la UI solo lo muestra)
+- `credits: number`
 
-## Running unit tests
+Inscripción (referencial; configurable en MockAPI):
+- `id: string`
+- `studentId: string` (referencia a `students.id`)
+- `courseId: string` (referencia a `courses.id`)
+- `date?: string` (ISO)
+- `status?: string`
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Notas importantes:
+- La UI utiliza `dni` para mostrar, pero los servicios usan `id` de MockAPI para PUT/DELETE si está presente (fallback a `dni`).
+- Si cambias a `average` en escala 0–100 en la API, ajusta los validadores en los formularios.
 
-```bash
-ng test
-```
+## Estructura relevante
 
-## Running end-to-end tests
+- Alumnos: `src/app/features/alumnos/*`
+- Cursos: `src/app/features/cursos/*`
+- Inscripciones: `src/app/features/inscripciones/*`
+- Tabla alumnos: `src/app/students-table/*`
+- Login: `src/app/login/*`
+- Enrutado: `src/app/app.routes.ts`
 
-For end-to-end (e2e) testing, run:
+## Personalización de endpoints
 
-```bash
-ng e2e
-```
+- Alumnos: editar `baseUrl` en `src/app/features/alumnos/alumnos-api.ts`
+- Cursos: editar `baseUrl` en `src/app/features/cursos/cursos-api.ts`
+- Inscripciones: editar `baseUrl` en `src/app/features/inscripciones/inscripciones.ts`
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Sugerencia: mover URLs a `environments` para evitar hardcodear en código fuente.
 
-## Additional Resources
+## Estilo de commits
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Se utiliza Conventional Commits. Ejemplos:
+- `feat(alumnos): switch to MockAPI and use id for CRUD if present`
+- `fix(login): remove left whitespace and center headings`
+- `docs(readme): add Spanish project documentation and MockAPI setup`
+
+---
+
+Generado con [Angular CLI](https://github.com/angular/angular-cli) v20.1.0.
