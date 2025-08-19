@@ -8,7 +8,8 @@ import { DbRoutes } from '../../../shared/enums/enums';
   providedIn: 'root'
 })
 export class CursosAPI {
-  baseUrl = "http://localhost:3000";
+  // MockAPI base URL for courses
+  baseUrl = "https://689296dfc49d24bce867de63.mockapi.io/api/v1";
 
   constructor(private http: HttpClient) { }
 
