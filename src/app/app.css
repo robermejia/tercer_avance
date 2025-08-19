@@ -15,6 +15,7 @@ body {
 /* Toma todo el alto disponible */
 .container-fluid {
     min-height: 100vh;
+    padding: 0 !important;
 }
 
 /* Estilo de la barra lateral */
